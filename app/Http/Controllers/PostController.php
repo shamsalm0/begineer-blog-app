@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Tag;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Unique;
 
 class PostController extends Controller
 {
@@ -39,7 +40,17 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        Post::create($request->all());
+        $data = $request->all();
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $imageName = time().' '.uniqid().'.'.$ext;
+            $file->move(public_path('/images/posts'),$imageName);
+            $data['image'] = '/images/posts/'.$imageName;
+        }
+
+        Post::create($data);
         return redirect()->route('posts.index')->with('success','Post created Successfully');
     }
 
@@ -68,7 +79,17 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, string $id)
     {
-     Post::update($request->all());
+        $post = Post::findOrFail($id);
+        $data = $request->all();
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $imageName = time().' '.uniqid().'.'.$ext;
+            $file->move(public_path('/images/posts'),$imageName);
+            $data['image'] = '/images/posts/'.$imageName;
+        }
+     $post::update($data);
       return redirect()->route('posts.index')->with('success','Products added successfully');
     }
 

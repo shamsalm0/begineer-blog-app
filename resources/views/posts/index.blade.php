@@ -32,6 +32,7 @@
        @foreach ($categoryPosts as $post)
         <div class="card mb-3 ">
             <div class="card-body ">
+                <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" class="img-fluid card-img">
                 <h5 class="card-title">{{ Str::limit($post->title, 15) }}</h5>
                 <p class="card-text">{{ Str::limit($post->post, 50) }}</p>
                 <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Show</a>

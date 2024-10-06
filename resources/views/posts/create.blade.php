@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <form action="{{ route('posts.store') }}" method="post">
+        <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -23,7 +23,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-
+        <input type="text" name="user_id" value="{{Auth::user()->id}}" class="d-none" id="">
             <div class="mb-3">
                 <select name='category_id' class="form-select" aria-label="Default select example">
                     <option selected>Open this select menu</option>
@@ -46,6 +46,14 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="mb-3">
+                <label for="imageInput" class="form-label">Choose Image</label>
+                <input class="form-control" name="image" type="file" id="imageInput" accept="image/*">
+              </div>
+              {{-- <div class="mb-3">
+                <img id="imagePreview" src="#" alt="Image Preview" class="img-fluid" style="max-width: 200px; display: none;">
+              </div> --}}
+          
             <div class="form-floating">
                 <textarea name='post' class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
                     style="height: 100px"></textarea>

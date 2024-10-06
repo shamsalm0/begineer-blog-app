@@ -25,6 +25,8 @@ class PostRequest extends FormRequest
             'title'=>'required|unique:posts,title',
             'category_id'=>'required',
             'tag_id'=>'nullable',
+            'user_id'=>'required',
+            'image'=>'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'post'=>'required|min:100'
         ];
     }

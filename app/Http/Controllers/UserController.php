@@ -12,18 +12,5 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    public function signup(RegisterRequest $request){
-       User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' =>Hash:: make($request->password)
-       ]);
-       return redirect()->route('auth.login')->with('success','Registered Successfully');
-    }
 
-    public function login(LoginRequest $request){
-        if(Auth::intended($request)){
-            $request->session()->regenerate();
-        }
-    }
 }

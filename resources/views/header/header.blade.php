@@ -10,7 +10,7 @@
 </head>
 <body>
 <nav class="navbar container  mt-5 navbar-expand-lg bg-warning-subtle rounded">
-  <div class="container-fluid bg-warning-subtle">
+  <div class="container-fluid bg-warning-subtle d-flex justify-between">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,11 +26,50 @@
         <li class="nav-item">
           <a class="nav-link" href="{{route('posts.create')}}">Create</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " aria-disabled="true"></a>
-        </li>
+     
       </ul>
+     
+ 
     </div>
+  
+  </div>
+  <div class="collapse navbar-collapse">
+    @auth
+    <ul class="navbar-nav d-flex">
+      <li class="nav-item">
+        <a class="nav-link " aria-disabled="true"> 
+          {{Auth::user()->name}}
+         </a>
+         
+      </li>
+   
+   <form action="{{route('auth.signout')}}" method="post">
+    @csrf
+   <button class="nav-item" type="submit"><li class="nav-item">logout</li></button>
+   </form>
+   
+   
+  </ul>
+  @else
+  <ul class="navbar-nav d-flex">
+    <li class="nav-item">
+      <a class="nav-link " href="{{route('auth.login')}}" aria-disabled="true"> 
+        Sign In
+       </a>
+       
+    </li>
+ 
+    <li class="nav-item">
+      <a class="nav-link " href="{{route('auth.register')}}" aria-disabled="true"> 
+        Sign Up
+       </a>
+       
+    </li>
+ 
+ 
+</ul>
+
+  @endauth
   </div>
 </nav>
 </body>
